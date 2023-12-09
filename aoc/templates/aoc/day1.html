@@ -1,0 +1,13 @@
+<h1>Day 1</h1>
+
+<form action="{% url 'day_one' %}" method="post">
+  {% csrf_token %}
+  <fieldset>
+    <textarea rows="5" name="list" style="width: 100%"></textarea>
+  </fieldset>
+  <input type="submit" value="Submit">
+</form>
+
+{% if result %}
+<div>{{ result }}</div>
+{% endif %}
