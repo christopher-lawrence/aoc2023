@@ -43,6 +43,5 @@ class TestParserFour(TestCase):
 
         card.get_value()
 
-        self.assertEqual(card.additional_cards, [2, 3, 4, 5])
         self.assertEqual(card.name, 1)
         self.assertEqual(card_dict, {2: 1, 3: 1, 4: 1, 5: 1})

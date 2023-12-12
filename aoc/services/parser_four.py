@@ -3,7 +3,6 @@ class Card:
         (winners_part, numbers) = contents.split("|")
         self.numbers: list[int] = []
         self.winners: list[int] = []
-        self.additional_cards: list[int] = []
         self.name = self.get_name(winners_part)
         self.card_dict = card_dict
 
@@ -22,13 +21,14 @@ class Card:
         additional_count = 1
 
         for _ in range(len(winners)):
-            if result == 0 and self.name not in self.card_dict.keys():
-                key = self.name
-                key = self.name + additional_count
-                if key in self.card_dict.keys():
-                    self.card_dict[key] += 1
-                else:
-                    self.card_dict[key] = 1
+            if result == 0:
+                if self.name not in self.card_dict.keys():
+                    key = self.name
+                    key = self.name + additional_count
+                    if key in self.card_dict.keys():
+                        self.card_dict[key] += 1
+                    else:
+                        self.card_dict[key] = 1
                 additional_count += 1
                 result += 1
                 continue
