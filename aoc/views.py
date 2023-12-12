@@ -3,7 +3,7 @@ from django.shortcuts import render
 
 from .services.parser import combine_numbers, get_numbers
 from .services.parser_two import parse_game
-from .services.parser_three import find_valid_numbers, get_lines, get_rows
+from .services.parser_three import find_gears, find_valid_numbers, get_lines, get_rows
 
 # Create your views here.
 
@@ -67,7 +67,12 @@ def day_three(request: HttpRequest):
         values = [x.strip("\r") for x in request.POST["list"]]
 
         rows = get_rows(get_lines(request.POST["list"]))
-        values = find_valid_numbers(rows)
+
+        gears = request.POST["gears"]
+        if gears == 'on':
+            values = find_gears(rows)
+        else:
+            values = find_valid_numbers(rows)
 
         print(values)
 

@@ -106,7 +106,31 @@ def find_valid_numbers(rows: list[Row]):
     return values
 
 
-def find_intersecting(numbers: list[Location], symbols: list[Location]) -> list[int]:
+def find_gears(rows: list[Row]):
+    index = 0
+    values: list[int] = []
+
+    for _ in range(len(rows)):
+        for g in [gear for gear in rows[index].symbols if gear.value == "*"]:
+            gear_values: list[int] = []
+
+            gear_values.extend(find_intersecting(rows[index].numbers, [g]))
+
+            if index < len(rows):
+                gear_values.extend(find_intersecting(rows[index+1].numbers, [g]))
+            
+            if index > 0:
+                gear_values.extend(find_intersecting(rows[index-1].numbers, [g]))
+
+            if len(gear_values) == 2:
+                values.append(gear_values[0] * gear_values[1])
+
+        index += 1
+
+    return values
+
+
+def find_intersecting( numbers: list[Location], symbols: list[Location] ) -> list[int]:
     """Overlay the symbol ranges onto the number ranges to find intersections"""
     values: list[int] = []
     for symbol in symbols:
