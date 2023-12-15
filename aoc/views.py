@@ -10,6 +10,10 @@ from .services.parser_three import find_gears, find_valid_numbers, get_lines, ge
 # Create your views here.
 
 
+def index(request: HttpRequest):
+    return render(request, "aoc/index.html", {"pages": range(1, 20)})
+
+
 def day_one(request: HttpRequest):
     print(request)
     if request.method == "GET":
@@ -107,7 +111,9 @@ def day_four(request: HttpRequest):
                     card_dict[card.name] = 1
                 else:
                     card_dict[card.name] += 1
-                for _ in range(card_dict[card.name] if card.name in card_dict.keys() else 0):
+                for _ in range(
+                    card_dict[card.name] if card.name in card_dict.keys() else 0
+                ):
                     card.get_value()
                 if card.name in card_dict.keys():
                     additional_result += card_dict[card.name]
@@ -125,3 +131,14 @@ def day_four(request: HttpRequest):
             {"day": 4, "day_url": "day_four", "result": return_value},
         )
     return HttpResponse("day_four")
+
+
+def day_five(request: HttpRequest):
+    if request.method == "POST":
+        print(request.POST)
+
+        return render(
+            request, "aoc/day5.html", {"day": 5, "day_url": "day_five", "result": {}}
+        )
+
+    return render(request, "aoc/day5.html", {"day": 5, "day_url": "day_five"})
